@@ -3,15 +3,20 @@
 //all rights and lefts reserved
 
 #include <iostream>
-#include "my_vector.h"
+
+#include <vector>
 
 #include <algorithm>
+#include "my_vector.h"
 
 struct Cat{
 public:
-    char* breed;
-    Cat(): breed(nullptr){};
-    Cat(char* breed_): breed( breed_){}
+    std::string breed;
+    Cat(){}
+    Cat(const std::string& breed_): breed( breed_){
+
+    }
+    //Cat(char* breed_): breed( breed_){}
     Cat& operator=(Cat other){
         this->breed = other.breed;
         return *this;
@@ -136,19 +141,22 @@ int main() {
 //    }
 
     //Cat cats[1];
+
+
     std::cout << "-------------------------" << std::endl;
     std::cout << "STL with struct demonstration" << std::endl;
-    my_vector<Cat> cattery(5,"To_delete");
-
+    my_vector<Cat> cattery(5, Cat("To_delete"));
     cattery.push_back(Cat{"Siberian"});
-//    cattery.push_back(Cat{"Bengal"});
-//    cattery.push_back(Cat{"Savannah"});
-//    cattery.push_back(Cat("Bengaal"));
-//    cattery.push_back(Cat{"A"});
-//    Cat last = cattery.back();
-//    std::cout << last.breed;
-    //std::sort(cattery.begin(), cattery.end());
 
+    std::vector <Cat> test;
+    test.push_back(Cat{"Bengal"});
+    cattery.push_back(Cat{"Savannah"});
+    cattery.push_back(Cat("Bengaal"));
+    cattery.push_back(Cat{"A"});
+    Cat last = cattery.back();
+    std::cout << last.breed;
+//    std::sort(cattery.begin(), cattery.end());
+//
     std::sort(
             cattery.front(),
             cattery.back(),

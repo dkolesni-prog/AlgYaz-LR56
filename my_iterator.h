@@ -14,6 +14,7 @@ class my_iterator {
     T* pos = nullptr;
 
 public:
+
     using iterator_category = std::random_access_iterator_tag;
     using value_type = T;
     using difference_type = int;
