@@ -3,15 +3,20 @@
 //all rights and lefts reserved
 
 #include <iostream>
-#include "my_vector.h"
+
+#include <vector>
 
 #include <algorithm>
+#include "my_vector.h"
 
 struct Cat{
 public:
-    char* breed;
-    Cat(): breed(nullptr){};
-    Cat(char* breed_): breed( breed_){}
+    std::string breed;
+    Cat(){}
+    Cat(const std::string& breed_): breed( breed_){
+
+    }
+    //Cat(char* breed_): breed( breed_){}
     Cat& operator=(Cat other){
         this->breed = other.breed;
         return *this;
@@ -22,19 +27,19 @@ public:
     }
     //присваивание оператор констр копирования
 
-//    friend bool operator<(Cat& first, Cat& second);
-//    friend bool operator>(Cat& first, Cat& second);
+    friend bool operator<(const Cat& first,const Cat& second);
+    friend bool operator>(const Cat& first,const Cat& second);
 
 };
 
-//bool operator<(Cat& first, Cat& second){
-//    return  first.breed < second.breed;
-//    // if (breed < other.breed) return true;
-//}
-//bool operator>(Cat& first, Cat& second){
-//    return  first.breed > second.breed;
-//    // if (breed < other.breed) return true;
-//}
+bool operator<(const Cat& first, const Cat& second){
+    return  first.breed < second.breed;
+    // if (breed < other.breed) return true;
+}
+bool operator>(const Cat& first,const Cat& second){
+    return  first.breed > second.breed;
+    // if (breed < other.breed) return true;
+}
 //bool operator==(Cat& first, Cat& second){
 //    return  first.breed == second.breed;
 //    // if (breed < other.breed) return true;
@@ -68,44 +73,55 @@ int main() {
 
 
 
-//
-//    my_vector<int> test_insert;
-//
-//    test_insert.push_back(5);
-//    test_insert.push_back(9);
-//    test_insert.push_back(3);
-//    test_insert.push_back(4);
-//    test_insert.push_back(5);
+
+    my_vector<int> test_insert;
+
+    test_insert.push_back(0);
+    test_insert.push_back(1);
+    test_insert.push_back(2);
+    test_insert.push_back(3);
+    test_insert.push_back(4);
+    test_insert.push_back(5);
 //    test_insert.push_back(6);
 //    test_insert.push_back(7);
 //    test_insert.push_back(8);
-//    test_insert.push_back(9);
 
-//    std::cout << "Before: " << std::endl;
-//    for (const auto& item : test_insert) {
-//        std::cout << item << std::endl;
-//    }
-//    std::cout << "number of elements before: " << test_insert.get_n() << std::endl
-//    << "capacity before: " << test_insert.get_capacity() << std::endl <<
-//    "ext capacity before: " << test_insert.get_ext() << std::endl;
-//
-//    std::cout << "-------------------------" << std::endl;
+    std::cout << "Before: " << std::endl;
+    for (const auto& item : test_insert) {
+        std::cout << item << std::endl;
+    }
+    std::cout << "number of elements before: " << test_insert.get_n() << std::endl
+    << "capacity before: " << test_insert.get_capacity() << std::endl ;
 
-  //  std::cout <<test_insert[666] << std::endl;
+    std::cout << "-------------------------" << std::endl;
+
+   // std::cout <<test_insert[666] << std::endl;
 
 
 
 
-    // auto it = test_insert.erase(test_insert.begin() + 2);//  erase по итератору
+    // auto it = test_insert.insert(test_insert.begin() + 2, 555);//  erase по итератору
     //auto it = test_insert.erase(test_insert.begin() + 2, test_insert.end());// erase по диапазону
 
-//   test_insert.insert(test_insert.begin() + 2, 0);// insert по итератору
-//   test_insert.insert(test_insert.begin() + 2, 0);// insert по итератору
+    //auto it = test_insert.erase(test_insert.begin() + 2);
+  // test_insert.insert(test_insert.begin() + 2, 0);// insert по итератору
+  // test_insert.insert(test_insert.begin() + 2, 0);// insert по итератору
 
-//  test_insert.push_back(6);
-//  test_insert.push_back(7);
-//  test_insert.push_back(8);
-//  test_insert.push_back(9);
+
+
+  test_insert.push_back(6);
+  test_insert.push_back(7);
+  test_insert.push_back(8);
+  test_insert.push_back(9);
+  test_insert.push_back(5);
+  test_insert.push_back(5);
+  test_insert.push_back(5);
+  test_insert.push_back(5);
+
+
+  for (const auto& item : test_insert) {
+      std::cout << item <<  " " << test_insert.get_capacity() << " " << test_insert.get_n() << std::endl;
+  }
 //    std::cout << "After insert: " << std::endl;
 //    for (const auto& item : test_insert) {
 //        std::cout << item << std::endl;
@@ -136,28 +152,33 @@ int main() {
 //    }
 
     //Cat cats[1];
-    std::cout << "-------------------------" << std::endl;
-    std::cout << "STL with struct demonstration" << std::endl;
-    my_vector<Cat> cattery(5,"To_delete");
 
-    cattery.push_back(Cat{"Siberian"});
-//    cattery.push_back(Cat{"Bengal"});
+
+//    std::cout << "-------------------------" << std::endl;
+//    std::cout << "STL with struct demonstration" << std::endl;
+//    my_vector<Cat> cattery(5, Cat("To_delete"));
+//    cattery.push_back(Cat{"Siberian"});
+//
+//    std::vector <Cat> test;
+//    test.push_back(Cat{"Bengal"});
 //    cattery.push_back(Cat{"Savannah"});
 //    cattery.push_back(Cat("Bengaal"));
 //    cattery.push_back(Cat{"A"});
 //    Cat last = cattery.back();
 //    std::cout << last.breed;
-    //std::sort(cattery.begin(), cattery.end());
+//    std::sort(cattery.begin(), cattery.end());
 
-    std::sort(
-            cattery.front(),
-            cattery.back(),
-            [] (Cat const & l, Cat const & r) {return l.breed < r.breed;}
-            );
-    std::cout << "After sort: " << std::endl;
-    for (const auto& item : cattery) {
-        std::cout << item.breed << std::endl;
-    }
+//    std::sort(
+//            cattery.begin(),
+//            cattery.end(),
+//            [] (const Cat  & l, const Cat  & r) {return l.breed < r.breed;}
+//            );
+//
+//
+//    std::cout << "After sort: " << std::endl;
+//    for (const auto& item : cattery) {
+//        std::cout << item.breed << std::endl;
+//    }
 
 
 
